@@ -1,6 +1,8 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+export default clerkMiddleware({
+  authorizedParties: ["https://chatwithyoutube.com"],
+});
 
 export const config = {
   matcher: [
