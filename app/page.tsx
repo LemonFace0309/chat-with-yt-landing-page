@@ -75,7 +75,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
+          className="text-center mt-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
         >
           <h1 className="text-4xl sm:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
             Your AI YouTube Assistant
@@ -116,12 +116,12 @@ export default function Home() {
                 className="relative group"
               >
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 to-purple-500 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
-                <div className="relative p-6 bg-card rounded-lg border">
+                <div className="relative p-6 bg-card rounded-lg border h-full flex flex-col">
                   <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
                     {feature.icon}
                   </div>
                   <h3 className="mt-4 text-xl font-semibold">{feature.title}</h3>
-                  <p className="mt-2 text-muted-foreground">{feature.description}</p>
+                  <p className="mt-2 text-muted-foreground flex-grow">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
