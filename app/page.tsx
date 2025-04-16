@@ -1,10 +1,26 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { Youtube, MessageSquare, FastForward, Search, Clock, FileText, ChefHat, Chrome } from 'lucide-react';
-import { motion, useAnimation } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
+import {
+  Youtube,
+  MessageSquare,
+  FastForward,
+  Search,
+  Clock,
+  FileText,
+  ChefHat,
+  Chrome,
+} from "lucide-react";
+import { motion, useAnimation } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,7 +31,7 @@ export default function Home() {
     const animateLogo = async () => {
       await logoControls.start({
         rotate: [0, -20, 20, -20, 20, 0],
-        transition: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+        transition: { duration: 2, repeat: Infinity, ease: "easeInOut" },
       });
     };
     animateLogo();
@@ -25,33 +41,34 @@ export default function Home() {
     {
       icon: <MessageSquare className="h-8 w-8 text-pink-500" />,
       title: "Chat & Summarize",
-      description: "Get instant summaries and chat about any YouTube video content"
+      description:
+        "Get instant summaries and chat about any YouTube video content",
     },
     {
       icon: <FastForward className="h-8 w-8 text-blue-500" />,
       title: "Skip Ads",
-      description: "Automatically skip through ad breaks seamlessly"
+      description: "Automatically skip through ad breaks seamlessly",
     },
     {
       icon: <Search className="h-8 w-8 text-purple-500" />,
       title: "Visual Search",
-      description: "Search for specific moments in videos with visual context"
+      description: "Search for specific moments in videos with visual context",
     },
     {
       icon: <Clock className="h-8 w-8 text-green-500" />,
       title: "Smart Timestamps",
-      description: "Navigate videos with intelligent timestamp markers"
+      description: "Navigate videos with intelligent timestamp markers",
     },
     {
       icon: <FileText className="h-8 w-8 text-orange-500" />,
       title: "Video Transcript",
-      description: "Access complete video transcripts instantly"
+      description: "Access complete video transcripts instantly",
     },
     {
       icon: <ChefHat className="h-8 w-8 text-yellow-500" />,
       title: "Smart Extraction",
-      description: "Get recipes from cooking videos or steps from tutorials"
-    }
+      description: "Get recipes from cooking videos or steps from tutorials",
+    },
   ];
 
   return (
@@ -65,7 +82,20 @@ export default function Home() {
               </motion.div>
               <span className="text-xl font-bold">ChatWithYoutube</span>
             </div>
-            <ThemeToggle />
+            <div className="flex items-center space-x-4">
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <Button variant="ghost">Sign In</Button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <Button>Sign Up</Button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </nav>
@@ -81,7 +111,8 @@ export default function Home() {
             Your AI YouTube Assistant
           </h1>
           <p className="mt-6 text-xl text-muted-foreground">
-            Transform your YouTube experience with AI-powered features that help you understand, navigate, and extract information from any video.
+            Transform your YouTube experience with AI-powered features that help
+            you understand, navigate, and extract information from any video.
           </p>
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -92,7 +123,9 @@ export default function Home() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-6 text-lg"
-              onClick={() => window.open('https://chrome.google.com/webstore', '_blank')}
+              onClick={() =>
+                window.open("https://chrome.google.com/webstore", "_blank")
+              }
             >
               <Chrome className="mr-2 h-5 w-5" />
               Add to Chrome
@@ -120,8 +153,12 @@ export default function Home() {
                   <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
                     {feature.icon}
                   </div>
-                  <h3 className="mt-4 text-xl font-semibold">{feature.title}</h3>
-                  <p className="mt-2 text-muted-foreground flex-grow">{feature.description}</p>
+                  <h3 className="mt-4 text-xl font-semibold">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-2 text-muted-foreground flex-grow">
+                    {feature.description}
+                  </p>
                 </div>
               </motion.div>
             ))}
